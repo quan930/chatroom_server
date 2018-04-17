@@ -11,31 +11,29 @@ import java.util.Date;
 import java.util.List;
 
 import quan.Protocol.QQProtocol;
-import quan.main.Chat;
+import quan.main.Chater;
 
 public class AllSend {
-	public AllSend(QQProtocol information,List<Chat>servers,Socket server,PrintStream log,int threadId) {
-		 for (int i = 0; i < servers.size(); i++) {// 遍历所有的线程
-	        Socket s = servers.get(i).getChatServer();
+	public AllSend(QQProtocol information,Chater chater) {
+		 for (int i = 0; i < chater.getChats().size(); i++) {// 遍历所有的线程
+	        Socket s = chater.getChats().get(i).getChatServer();
 	        if(s.isClosed()) {//判断套接字是否关闭，如关闭结束本次循环
 	       		continue;
 	       	}else {
-	       		if(s != server) {//判断是否是自己
+	       		if(s != chater.getChatServer()) {//判断是否是自己
 	   				PrintWriter outS;//创建输出流
 					try {
 						outS = new PrintWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"),true);
-						outS.println(servers.get(threadId).getChatName()+"发送"+information.getString());
+						outS.println(chater.getName()+"发送"+information.getString());
 						//outS.close();//关闭流
 					} catch (UnsupportedEncodingException e) {//抛出异常
 						// TODO Auto-generated catch block
-						log.println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date()));
-						e.printStackTrace(log);
-						e.printStackTrace();
+						chater.getLog().println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date()));
+						e.printStackTrace(chater.getLog());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						log.println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date()));
-						e.printStackTrace(log);
-						e.printStackTrace();
+						chater.getLog().println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date()));
+						e.printStackTrace(chater.getLog());
 					}
 	    		}
 	        }

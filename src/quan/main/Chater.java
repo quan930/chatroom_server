@@ -9,10 +9,35 @@ import quan.method.*;
 
 //线程执行
 public class Chater implements Runnable {
-	List<Chat>servers = new ArrayList<Chat>();
 	private Socket server;
-	private int threadId;
 	private PrintStream log;
+	private String name;
+	private List<Chater>chats = new ArrayList<Chater>();
+	
+	public Socket getChatServer() {
+		return server;
+	}
+	
+	public String getChatName() {
+		return name;
+	} 
+	
+	public PrintStream getLog() {
+		return log;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public List<Chater> getChats() {
+		return chats;
+	}
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -21,9 +46,8 @@ public class Chater implements Runnable {
 			InputStream inServer = server.getInputStream();
 			Scanner in = new Scanner(inServer,"UTF-8");
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(outServer,"UTF-8"),true);
-			log.print(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"有一个客户端进行了连接\t\t"+"在线人数:"+new ShowPersonNum(servers).getNum());
-			System.out.print(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"有一个客户端进行了连接\t\t"+"在线人数:"+new ShowPersonNum(servers).getNum());
-			out.println("已连接服务器(quit退出)"+"你的Id为"+threadId);
+			log.print(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"有一个客户端进行了连接\t\t"+"在线人数:"+new ShowPersonNum(chats).getNum());
+			out.println("已连接服务器");
 			boolean isOnline= true;//上下线
 			while(isOnline) {
 				String stringSer = in.nextLine();
@@ -34,30 +58,30 @@ public class Chater implements Runnable {
 				QQProtocol information = new QQProtocol(stringSer);
 				switch(information.menu()) {
 				case 1://群发
-					new AllSend(information,servers,server,log,threadId);
+					new AllSend(information,this);
 					break;
 				case 2://单发
-					new SendNameMessage(out,information,servers,server,threadId,log);
+					new SendNameMessage(out,information,this);
 					break;
 				case 3:
 					//文件
 					break;
 				case 4://显示在线人数
-					out.println("在线人数:"+new ShowPersonNum(servers).getNum());
+					out.println("在线人数:"+new ShowPersonNum(chats).getNum());
 					break;
 				case 5://显示当前上线的name
-					new ShowPersonName(servers,out);
+					new ShowPersonName(chats,out);
 					break;
 				case 6://退出
-					new ChatOut(servers,server,out,log,threadId);
+					new ChatOut(out,this);
 					server.close();
 					in.close();
 					out.close();
 					isOnline = false;
-					log.println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"\n"+threadId+"退出了连接");
+					log.println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"\n"+"退出了连接");
 					break;
 				case 7://命名
-					new ChatName(information,servers,threadId,out,server,log);
+					new ChatName(out,information,this);
 					break;
 				default:
 					break;
@@ -75,11 +99,11 @@ public class Chater implements Runnable {
 			e1.printStackTrace();
 		}
 	}
-	public Chater(List<Chat>servers,int threadId) {
-		this.log = servers.get(threadId).getLog();
-		this.server = servers.get(threadId).getChatServer();
-		this.threadId = threadId;
-		this.servers = servers;
-	}
 	
+	public Chater(Socket server,PrintStream log,String name,List<Chater>chats) {
+		this.log = log;
+		this.server = server;
+		this.name = name;
+		this.chats = chats;
+	}
 }

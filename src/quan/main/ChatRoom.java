@@ -20,17 +20,16 @@ public class ChatRoom {
 			file.createNewFile();
 		}
 		PrintStream log = new PrintStream(file);
-		List<Chat>servers = new ArrayList<Chat>();
+		List<Chater>chats = new ArrayList<Chater>();
 		ServerSocket serverSocket;
 		serverSocket = new ServerSocket(port);
 		i = 0;
 		while(true) {
 			Socket server = serverSocket.accept();
-			Chat chat = new Chat(server,"****",log);
-			servers.add(chat);
 			log.println("线程"+i);
-			Runnable r = new Chater(servers,i);
-			Thread t = new Thread(r);
+			Chater chater = new Chater(server,log,"****",chats);
+			chats.add(chater);
+			Thread t = new Thread(chater);
 			t.start();
 			i++;
 		}
