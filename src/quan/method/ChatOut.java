@@ -22,7 +22,7 @@ public class ChatOut {
 					PrintWriter outS;//创建输出流
 					try {
 						outS = new PrintWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"),true);
-						outS.println(chater.getChatName()+"退出");
+						outS.println(chater.getChatName()+"下线");
 						//outS.close();//关闭流 ？？？？？？！！！！！！！
 					} catch (UnsupportedEncodingException e) {//抛出异常
 						// TODO Auto-generated catch block

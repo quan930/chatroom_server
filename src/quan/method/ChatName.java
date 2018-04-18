@@ -22,7 +22,7 @@ public class ChatName {
         		continue;
         	}else {
         		if(chater.getChats().get(i).getChatName().equals(name)) {
-        			out.println("名字重复");
+        			out.println("*na*名字重复");
 					return;
 				}else {
 					continue;
@@ -30,7 +30,8 @@ public class ChatName {
         	}
         }
 		chater.setName(name);
-		
+		out.println("*na*创建成功!");
+		//广播加入
 		for (int i = 0; i < chater.getChats().size(); i++) {// 遍历所有的线程
         	Socket s = chater.getChats().get(i).getChatServer();
 			if(s.isClosed()) {//判断套接字是否关闭，如关闭结束本次循环

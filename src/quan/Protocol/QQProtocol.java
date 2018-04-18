@@ -19,7 +19,7 @@ public class QQProtocol {
 		case "*sp*"://显示当在线人数为4
 			i = 4;
 			break;
-		case "*sn*"://显示当前上线的id为5
+		case "*sn*"://显示当前上线的名字为5
 			i = 5;
 			break;
 		case "*ou*"://退出为6
@@ -39,12 +39,6 @@ public class QQProtocol {
 		String s = string.substring(4);
 		return s;
 	}
-	
-//	//返回id
-//	public int getId() {
-//		String s = string.substring(4,8);
-//		return Integer.parseInt(s);
-//	}
 	
 	public QQProtocol(String string) {
 		String str = string.trim();//减去字符串前后空格
