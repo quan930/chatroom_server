@@ -23,7 +23,6 @@ public class Chater implements Runnable {
 			Scanner in = new Scanner(inServer,"UTF-8");
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(outServer,"UTF-8"),true);
 			log.print(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date())+"有一个客户端进行了连接\t\t"+"在线人数:"+new ShowPersonNum(chats).getNum());
-			//out.println("已连接服务器");
 			boolean isOnline= true;//上下线
 			while(isOnline) {
 				String stringSer = in.nextLine();
@@ -73,6 +72,17 @@ public class Chater implements Runnable {
 			log.println(new SimpleDateFormat("yyyy年MM月dd日\tHH时mm分ss秒").format(new Date()));
 			e1.printStackTrace(log);
 			e1.printStackTrace();
+			log.println(name+"异常退出");
+			System.out.println("异常退出!");
+			try {
+				PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream(),"UTF-8"),true);
+				new ChatOut(out,this);
+				server.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				e.addSuppressed(e);
+			}
 		}
 	}
 

@@ -30,7 +30,7 @@ public class ChatName {
         	}
         }
 		chater.setName(name);
-		out.println("*na*创建成功!");
+		out.println("*na*创建成功");
 		//广播加入
 		for (int i = 0; i < chater.getChats().size(); i++) {// 遍历所有的线程
         	Socket s = chater.getChats().get(i).getChatServer();

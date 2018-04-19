@@ -1,3 +1,10 @@
 线程0
-2018年04月18日	22时49分56秒有一个客户端进行了连接		在线人数:12018年04月18日	22时51分02秒
+2018年04月19日	11时27分11秒有一个客户端进行了连接		在线人数:1线程1
+2018年04月19日	11时27分23秒有一个客户端进行了连接		在线人数:22018年04月19日	11时27分34秒
+java.lang.StringIndexOutOfBoundsException: String index out of range: 4
+	at java.lang.String.substring(String.java:1963)
+	at quan.Protocol.QQProtocol.menu(QQProtocol.java:8)
+	at quan.main.Chater.run(Chater.java:35)
+	at java.lang.Thread.run(Thread.java:748)
+2018年04月19日	11时28分21秒
 退出了连接
