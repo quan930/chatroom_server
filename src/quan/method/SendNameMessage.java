@@ -29,13 +29,14 @@ public class SendNameMessage {
         		if(chater.getChats().get(i).getChatName().equals(nameNew)) {
         			num = i;//获得对象ID
         			if(s == chater.getChatServer()) {//判断是否是自己
-    					out.println("不可以给给自己发消息error!");
+    					out.println("*11*error");
     					return;
     				}else {
     					PrintWriter outS;//创建输出流
     					try {
     						outS = new PrintWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"),true);
     						outS.println(chater.getChatName()+":"+newStr);
+    						out.println("*11*succsee");
     						//outS.close();//关闭流
     						existence = true;
     					} catch (UnsupportedEncodingException e) {//抛出异常
@@ -54,7 +55,7 @@ public class SendNameMessage {
         	}
         }
 		if(existence == false) {
-			out.println("人名不存在");
+			out.println("*11*人名不存在");
 		}
 		return;
 	}

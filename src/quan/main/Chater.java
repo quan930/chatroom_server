@@ -48,7 +48,8 @@ public class Chater implements Runnable {
 					new ShowPersonName(chats,out);
 					break;
 				case 6://退出
-					new ChatOut(out,this);
+					new ChatOut(this);
+					out.println("*ou*Bye");
 					server.close();
 //					in.close();
 					out.close();
@@ -75,8 +76,8 @@ public class Chater implements Runnable {
 			log.println(name+"异常退出");
 			System.out.println("异常退出!");
 			try {
-				PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream(),"UTF-8"),true);
-				new ChatOut(out,this);
+				//PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream(),"UTF-8"),true);
+				new ChatOut(this);
 				server.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

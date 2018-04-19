@@ -12,7 +12,7 @@ import java.util.List;
 import quan.main.Chater;
 
 public class ChatOut {
-	public ChatOut(PrintWriter out,Chater chater) {
+	public ChatOut(Chater chater) {
 		for	(int i = 0; i < chater.getChats().size(); i++) {// 遍历所有的线程
 	        Socket s = chater.getChats().get(i).getChatServer();
 			if(s.isClosed()) {//判断套接字是否关闭，如关闭结束本次循环
@@ -35,7 +35,7 @@ public class ChatOut {
 					}
 				}
 			}
-        }
+        }		
 		return;
 	}
 }

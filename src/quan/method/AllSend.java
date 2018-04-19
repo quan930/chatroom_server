@@ -24,7 +24,7 @@ public class AllSend {
 	   				PrintWriter outS;//创建输出流
 					try {
 						outS = new PrintWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"),true);
-						outS.println(chater.getName()+"发送"+information.getString());
+						outS.println(chater.getName()+information.getString());
 						//outS.close();//关闭流
 					} catch (UnsupportedEncodingException e) {//抛出异常
 						// TODO Auto-generated catch block
